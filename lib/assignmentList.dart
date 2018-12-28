@@ -3,29 +3,24 @@ import 'models/user.dart';
 
 
 class AssignmentList extends StatefulWidget {
-  Course course = new Course(gradables: [new Gradable()]);
-  AssignmentList({this.course});
+  final Course course;
+  AssignmentList(@required this.course);
 
   @override
-  _AssignmentListState createState() => _AssignmentListState(course);
+  _AssignmentListState createState() => _AssignmentListState();
 }
 
 class _AssignmentListState extends State<AssignmentList> {
-  Course course = new Course();
-  _AssignmentListState(this.course) {
-    print("Cunstructed");
-  }
+
 
   @override
   Widget build(BuildContext context) {
-    print("called build");
-    course = course!= null ? course : new Course(gradables: [new Gradable()]);
     return Container(
       child: new ListView.builder
         (
-          itemCount: course.gradables.length,
+          itemCount: widget.course.gradables.length,
           itemBuilder: (BuildContext ctxt, int index) {
-            return new AssignmentWidget(gradable: course.gradables[index]);
+            return new AssignmentWidget(gradable: widget.course.gradables[index]);
           }
       ),
     );
@@ -33,16 +28,14 @@ class _AssignmentListState extends State<AssignmentList> {
 }
 
 class AssignmentWidget extends StatefulWidget {
-  Gradable gradable = new Gradable();
+  final Gradable gradable;
   AssignmentWidget({this.gradable});
 
   @override
-  _AssingmentState createState() => new _AssingmentState(gradable);
+  _AssingmentState createState() => new _AssingmentState();
 }
 
 class _AssingmentState extends State<AssignmentWidget> {
-  _AssingmentState(this._gradable);
-  Gradable _gradable;
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +44,8 @@ class _AssingmentState extends State<AssignmentWidget> {
       padding: EdgeInsets.only(left: 5.0, right: 5.0),
       child: Row(
         children: <Widget>[
-          Text(_gradable.name),
-          Text(_gradable.grade.toString()+"%"),
+          Text(widget.gradable.name),
+          Text(widget.gradable.grade.toString()+"%"),
           FlatButton(
             child: Text("Edit")
           )
