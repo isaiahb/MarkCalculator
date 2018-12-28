@@ -14,10 +14,12 @@ class _CourseState extends State<Course> {
     return MaterialApp(
       title: "Course",
       home: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Text("Hi"),
+        ),
         body: AssignmentList(),
-
       ),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
