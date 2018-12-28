@@ -20,7 +20,7 @@ class _CourseWidgetState extends State<CourseWidget> {
           title: Text("Course"),
           leading: BackButton(),
         ),
-        body: AssignmentList(Course(gradables: [new Gradable()]))
+        body: AssignmentList(Course(gradables: [new Gradable(name: "test1")]))
       ),
     debugShowCheckedModeBanner: false,
     );
