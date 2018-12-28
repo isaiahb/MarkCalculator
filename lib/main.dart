@@ -3,9 +3,12 @@ import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
 
-void main() => runApp(new CourseWidget());
+void main() => runApp(new CourseWidget(Course(gradables: [new Gradable(name: "test2")])));
 
 class CourseWidget extends StatefulWidget {
+  Course course;
+  CourseWidget(this.course);
+
   @override
   _CourseWidgetState createState() => _CourseWidgetState();
 }
@@ -13,6 +16,8 @@ class CourseWidget extends StatefulWidget {
 class _CourseWidgetState extends State<CourseWidget> {
   @override
   Widget build(BuildContext context) {
+//    widget.course = widget.course != null ? widget.course : Course(gradables: [new Gradable(name: "test1")]);
+
     return MaterialApp(
       title: "Course",
       home: Scaffold(
@@ -27,14 +32,14 @@ class _CourseWidgetState extends State<CourseWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    CourseMark(text: "grade", grade: "100%"),
-                    CourseMark(text: "grade", grade: "100%"),
+                    CourseMark(text: "Grade Avg", grade: "100%"),
+                    CourseMark(text: "Culm Avg", grade: "100%"),
                   ],
                 ),
               )
           ),
         ),
-        body: AssignmentList(Course(gradables: [new Gradable(name: "test1")]))
+        body: AssignmentList(widget.course)
         ),
     debugShowCheckedModeBanner: false,
     );

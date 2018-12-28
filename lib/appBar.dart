@@ -24,8 +24,8 @@ class CourseMarkState extends State<CourseMark> {
       padding: const EdgeInsets.all(8.0),
       child: Container(child: Column(
         children: <Widget>[
-          Text(widget.text),
-          Text(widget.grade)
+          Text(widget.text, style: Theme.of(context).primaryTextTheme.body1),
+          Text(widget.grade, style: Theme.of(context).primaryTextTheme.headline)
         ],
       ),),
     );
