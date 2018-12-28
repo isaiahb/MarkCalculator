@@ -11,12 +11,12 @@ class Year {
 //ECE 2205, Circuits 1
 class Course {
   List<Gradable> gradables = new List<Gradable>();
-  double credits = 0.5;
-  double weight = 0.5;
-  String code = "";
-  String name = "";
+  double credits;
+  double weight;
+  String code;
+  String name;
 
-  Course({this.credits, this.weight, this.code, this.name, this.gradables});
+  Course({this.credits = 0.5, this.weight = 0.0, this.code ="ECE000", this.name="Course 01", this.gradables});
 
   double getFinalGrade() {
     double grade;
@@ -25,6 +25,7 @@ class Course {
     }
     return grade;
   }
+
   double getCurrentGrade(double currentMaxWeight) {
     double grade;
 
@@ -47,12 +48,12 @@ class Course {
 
 //Assingment, Lab, Midterm, Final
 class Gradable {
-  String name = "Assignment";
-  double weight = 0.0;
-  double grade = 0.0;
-  bool marked = false;
+  String name;
+  double weight;
+  double grade;
+  bool marked;
 
-  Gradable({this.name, this.weight, this.grade});
+  Gradable({this.name = "Assignment", this.weight = 0.0, this.grade = 0.0, this.marked = false});
 
   double getFinalGrade() {
     return grade*weight;
