@@ -4,7 +4,7 @@ import 'models/user.dart';
 
 class AssignmentList extends StatefulWidget {
   final Course course;
-  AssignmentList(@required this.course);
+  AssignmentList(this.course);
 
   @override
   _AssignmentListState createState() => _AssignmentListState();
@@ -40,18 +40,54 @@ class _AssingmentState extends State<AssignmentWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.deepPurple,
-      padding: EdgeInsets.only(left: 5.0, right: 5.0),
-      child: Row(
-        children: <Widget>[
-          Text(widget.gradable.name),
-          Text(widget.gradable.grade.toString()+"%"),
-          FlatButton(
-            child: Text("Edit")
-          )
-        ],
+//      color: Colors.white,
+      padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),
+      child: Card (
+        child: Row(
+//            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+            Column (
+
+              children:<Widget>[
+                Text(
+                    widget.gradable.name,
+                    style: Theme.of(context).textTheme.headline
+
+                )
+              ],
+            ),
+
+            Column (
+              children:<Widget>[
+                Text(widget.gradable.grade.toString()+"%"),
+              ],
+            ),
+
+            Spacer(),
+            Column (
+            mainAxisAlignment: MainAxisAlignment.end,
+            children:<Widget>[
+              IntrinsicHeight(
+                  child: FlatButton(
+                    child: Text("Edit"),
+                    onPressed: (){print("pressed");},
+                    color: Colors.purple,
+
+                  ),
+                )
+              ],
+            )
+
+          ],
+        ),
       )
     );
   }
+  /*
+  Text(widget.gradable.grade.toString()+"%"),
+              FlatButton(child: Text("Edit"))
+
+
+   */
 
 }

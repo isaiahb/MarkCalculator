@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grades/assignmentList.dart';
+import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
 
