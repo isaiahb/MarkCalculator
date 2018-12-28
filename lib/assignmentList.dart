@@ -11,17 +11,21 @@ class AssignmentList extends StatefulWidget {
 }
 
 class _AssignmentListState extends State<AssignmentList> {
-  Course _course = new Course();
-  _AssignmentListState(this._course);
+  Course course = new Course();
+  _AssignmentListState(this.course) {
+    print("Cunstructed");
+  }
 
   @override
   Widget build(BuildContext context) {
+    print("called build");
+    course = course!= null ? course : new Course(gradables: [new Gradable()]);
     return Container(
       child: new ListView.builder
         (
-          itemCount: _course.gradables.length,
+          itemCount: course.gradables.length,
           itemBuilder: (BuildContext ctxt, int index) {
-            return new AssignmentWidget(gradable: _course.gradables[index]);
+            return new AssignmentWidget(gradable: course.gradables[index]);
           }
       ),
     );
