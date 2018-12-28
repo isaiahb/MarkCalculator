@@ -12,7 +12,7 @@ import 'package:grades/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(new Course());
+    await tester.pumpWidget(new CourseWidget());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:grades/assignmentList.dart';
+import "models/user.dart";
 
-void main() => runApp(new Course());
+void main() => runApp(new CourseWidget());
 
-class Course extends StatefulWidget {
+class CourseWidget extends StatefulWidget {
   @override
-  _CourseState createState() => _CourseState();
+  _CourseWidgetState createState() => _CourseWidgetState();
 }
 
-class _CourseState extends State<Course> {
+class _CourseWidgetState extends State<CourseWidget> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
