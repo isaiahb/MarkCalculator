@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grades/assignmentList.dart';
-import "models/user.dart";
+import 'models/user.dart';
 
 void main() => runApp(new CourseWidget());
 
@@ -15,10 +15,14 @@ class _CourseWidgetState extends State<CourseWidget> {
     return MaterialApp(
       title: "Course",
       home: Scaffold(
-        appBar: AppBar(),
-        body: AssignmentList(),
-
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text("Course"),
+          leading: BackButton(),
+        ),
+        body: AssignmentList()
       ),
+    debugShowCheckedModeBanner: false,
     );
   }
 }
