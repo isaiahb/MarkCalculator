@@ -24,8 +24,6 @@ class _CourseWidgetState extends State<CourseWidget> {
       ),
     debugShowCheckedModeBanner: false,
     );
+
   }
 }
-
-
-
