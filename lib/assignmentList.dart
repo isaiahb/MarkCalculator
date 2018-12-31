@@ -12,14 +12,12 @@ class AssignmentList extends StatefulWidget {
 
 class _AssignmentListState extends State<AssignmentList> {
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: new ListView.builder
-        (
+      child: new ListView.builder(
           itemCount: widget.course.gradables.length,
-          itemBuilder: (BuildContext ctxt, int index) {
+          itemBuilder: (BuildContext context, int index) {
             return new AssignmentWidget(gradable: widget.course.gradables[index]);
           }
       ),
@@ -29,111 +27,97 @@ class _AssignmentListState extends State<AssignmentList> {
 
 class AssignmentWidget extends StatefulWidget {
   final Gradable gradable;
-  bool editing = false;
-
   AssignmentWidget({this.gradable});
-
   @override
-  _AssingmentState createState() => new _AssingmentState();
-
+  _AssignmentWidgetState createState() => new _AssignmentWidgetState();
 }
 
-class _AssingmentState extends State<AssignmentWidget> {
 
-  Widget _getEdit() {
-    if (!widget.editing)
-      return Container();
+class _AssignmentWidgetState extends State<AssignmentWidget> {
 
+  void _onEditPressed() => print("editting");
+  void _onDeletePressed() => print("deleting");
+
+  Widget _getTrailing() {
     return Container(
-      padding: EdgeInsets.only(left: 15.0, right: 15.0, top: 0.0),
+      child: Row(children: <Widget>[
+        RaisedButton(child: Text("Edit"), color: Colors.green, onPressed: _onEditPressed),
+        RaisedButton(child: Text("Delete"), color: Colors.red, onPressed: _onDeletePressed),
 
-      child: Card(
-        child:Column(
-          children: <Widget>[
-            Row(
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text("Mark",
-                    style: Theme.of(context).textTheme.headline
-                  )
-                ),
-              ],
-            ),
-            Row(
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.only(left: 10.0),
-                    child: Text("Weight",
-                      style: Theme.of(context).textTheme.headline)
-                ),
-              ],
-            ),
-          ],
-        )
-      ),
+      ]),
     );
   }
 
-  Widget _getCard() {
-    return Card (
-      child: Row(
-//            crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(left: 10.0),
-            child: Text(
-                widget.gradable.name,
-                style: Theme.of(context).textTheme.headline
+  void _resetDate(){}
+  void _delete(){}
+  final renameController = TextEditingController(text:"");
 
+  void _rename() {
+    print(renameController.text);
+  }
+
+  void _showRenameDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Rename - text"),
+            content: TextField(
+              controller: renameController,
             ),
-          ),
-          Spacer(),
 
-          Container(
-              padding: EdgeInsets.only(right: 10.0),
-              child: Text(widget.gradable.grade.toString()+"%", style: Theme.of(context).textTheme.headline)
-          ),
+            actions: <Widget>[
+              new FlatButton(
+                  child: Text("Confirm", style: TextStyle(color:Colors.green)),
+                  onPressed: (){
+                    _rename();
+                  }
+              ),
 
-//            Spacer(),
-          Column (
-            mainAxisAlignment: MainAxisAlignment.end,
-            children:<Widget>[
-              IntrinsicHeight(
-                child: FlatButton(
-                  child: Text("Edit"),
-                  onPressed: (){setState(() {
-                    widget.editing = !widget.editing;
-                  });},
-                  color: Colors.purple,
-                ),
+              FlatButton(
+                color: Colors.red,
+                child: Text("Cancel", style: TextStyle(color:Colors.white)),
+                onPressed: (){print("cancel");},
               )
             ],
-          )
-
-        ],
-      ),
+          );
+        }
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-//      color: Colors.white,
-      padding: EdgeInsets.only(bottom: 0.0, top: 0.0),
-      child: Column(
-        children: <Widget>[
-          _getCard(),
-          _getEdit()
-        ],
-      )
+    return new ExpansionTile(
+      title: Text("Assignment", textScaleFactor: 1.5,),
+      leading: Text("weight " + (widget.gradable.weight * 100).truncateToDouble().toString() + "%"),
+      trailing: Text(widget.gradable.grade.truncateToDouble().toString() + " % ", style: Theme.of(context).textTheme.display1),
+
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Expanded(flex:4, child: RaisedButton(
+                  child:Text("Rename", style:TextStyle(color:Colors.white)),
+                  color: Colors.green,
+                  onPressed: ()=> _showRenameDialog(context)
+              )),
+
+              Spacer(),
+              Expanded(flex:4, child: RaisedButton(
+                  child:Text("Delete", style:TextStyle(color:Colors.white)),
+                  color: Colors.red,
+                  onPressed: _onDeletePressed)
+              ),
+
+            ],
+          ),
+        )
+      ],
+//      leading: RaisedButton(child:Text("Edit"), onPressed: _onEditPressed),
+//      trailing: RaisedButton(child:Text("Delete"), onPressed: _onDeletePressed)
     );
   }
-  /*
-  Text(widget.gradable.grade.toString()+"%"),
-              FlatButton(child: Text("Edit"))
-
-
-   */
 
 }
