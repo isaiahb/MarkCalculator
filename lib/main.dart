@@ -3,7 +3,7 @@ import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
 
-void main() => runApp(new CourseWidget(Course(gradables: [new Gradable(name: "test2")])));
+void main() => runApp(new CourseWidget(Course(gradables: [new Gradable(name: "test2", grade: 87.0, weight: 0.2)])));
 
 class CourseWidget extends StatefulWidget {
   Course course;
@@ -17,7 +17,7 @@ class _CourseWidgetState extends State<CourseWidget> {
   
   void _addGradable(){
     setState(() {
-      widget.course.addGradeable("Test");
+      widget.course.addGradeable("Test", 0.6, 45);
     });
   }
   
@@ -39,8 +39,8 @@ class _CourseWidgetState extends State<CourseWidget> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    CourseMark(text: "Grade Avg", grade: "100%"),
-                    CourseMark(text: "Culm Avg", grade: "100%"),
+                    CourseMark(text: "Grade Avg", grade: widget.course.getFinalGrade().toString() + " %"),
+                    CourseMark(text: "Culm Avg", grade: widget.course.getCurrentGrade().toString()  + " %"),
                   ],
                 ),
               )
@@ -51,6 +51,8 @@ class _CourseWidgetState extends State<CourseWidget> {
           child: Icon(Icons.add),
           backgroundColor: Colors.blue,
           onPressed: _addGradable,
+          elevation: 20,
+          
         ),
         body: AssignmentList(widget.course)
         ),
