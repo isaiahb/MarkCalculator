@@ -49,7 +49,6 @@ class Course {
 
   void addGradeable([String name = "Test", double weight = 0.0, double grade = 0.0, bool marked = false]){
     double remianingWeight = _getRemainingWeight();
-    print(remianingWeight);
     if(remianingWeight == 0) return;
     if(weight > _getRemainingWeight()) weight = remianingWeight;
     gradables.add(new Gradable(
@@ -84,10 +83,9 @@ class Gradable {
   Gradable({this.name = "Assignment", this.weight = 0.0, this.grade = 0.0, this.marked = false});
 
   double getFinalGrade() {
-    if(grade == null) print("grade");
-    if(weight == null) print("weight");
     return grade*weight;
   }
+  
   double getCurrentGrade(double currentMaxWeight) {
     double currentWeight = weight * (1.0/currentMaxWeight);
     return grade * currentWeight;

@@ -22,8 +22,8 @@ class _CourseWidgetState extends State<CourseWidget> {
   }
 
   void _removeGrade(Gradable gradable){
-      setState(() {
-          widget.course.removeGradeable(gradable);
+    setState(() {
+      widget.course.removeGradeable(gradable);
     });
   }
   
