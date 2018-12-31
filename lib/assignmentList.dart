@@ -37,27 +37,6 @@ class AssignmentWidget extends StatefulWidget {
 
 class _AssignmentWidgetState extends State<AssignmentWidget> {
 
-  void _onEditPressed() => print("editting");
-
-  void _onDeletePressed() => print("deleting");
-
-  Widget _getTrailing() {
-    return Container(
-      child: Row(children: <Widget>[
-        RaisedButton(child: Text("Edit"),
-            color: Colors.green,
-            onPressed: _onEditPressed),
-        RaisedButton(child: Text("Delete"),
-            color: Colors.red,
-            onPressed: _onDeletePressed),
-
-      ]),
-    );
-  }
-
-  void _resetDate() {}
-
-  void _delete() {}
   final renameController = TextEditingController(text: "");
 
   void _rename() {
@@ -69,26 +48,69 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text("Rename - text"),
-            content: TextField(
-              controller: renameController,
+            title: Text("Rename ${widget.gradable.name}"),
+            content: Row(
+              children: <Widget>[
+                Text("New Name: "),
+                Expanded(child: TextField(controller: renameController,)),
+              ],
             ),
 
             actions: <Widget>[
-              new FlatButton(
-                  child: Text("Confirm", style: TextStyle(color: Colors.green)),
-                  onPressed: () {
-                    _rename();
-                  }
+              FlatButton(
+                textTheme: Theme.of(context).buttonTheme.textTheme,
+                color: Colors.black12,
+                child: Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
               ),
 
-              FlatButton(
-                color: Colors.red,
-                child: Text("Cancel", style: TextStyle(color: Colors.white)),
+              new FlatButton(
+                color: Theme.of(context).primaryColor,
+                child: Text("Confirm", style: TextStyle(color: Colors.white)),
                 onPressed: () {
-                  print("cancel");
+                  _rename();
+                  Navigator.of(context).pop();
+                  setState(() {
+                    widget.gradable.name = renameController.text;
+                  });
+                }
+              ),
+
+            ],
+          );
+        }
+    );
+  }
+
+  void _deleteDialog(BuildContext context, Gradable gradable) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Confirm Delete"),
+            content: Text("Are you sure you want to delete ${gradable.name}"),
+
+            actions: <Widget>[
+              FlatButton(
+                textTheme: Theme.of(context).buttonTheme.textTheme,
+                color: Colors.black12,
+                child: Text("Cancel"),
+                onPressed: () {
+                  Navigator.of(context).pop();
                 },
+              ),
+
+              new FlatButton(
+                  color: Colors.red,
+                  child: Text("Delete", style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    widget.remove(widget.gradable);
+                    Navigator.of(context).pop();
+                  }
               )
+
             ],
           );
         }
@@ -98,7 +120,7 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      title: Text("Assignment", textScaleFactor: 1.5,),
+      title: Text(widget.gradable.name, textScaleFactor: 1.5,),
       leading: Text("weight " + (widget.gradable.weight * 100).truncateToDouble().toString() + "%"),
       trailing: Text(widget.gradable.grade.truncateToDouble().toString() + " % ", style: Theme.of(context).textTheme.display1),
 
@@ -118,16 +140,13 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
               Expanded(flex:4, child: RaisedButton(
                   child:Text("Delete", style:TextStyle(color:Colors.white)),
                   color: Colors.red,
-                  onPressed: _onDeletePressed)
-              ),
+                  onPressed: ()=> _deleteDialog(context, widget.gradable)
+              )),
 
             ],
           ),
         )
       ],
-    //      leading: RaisedButton(child:Text("Edit"), onPressed: _onEditPressed),
-    //      trailing: RaisedButton(child:Text("Delete"), onPressed: _onDeletePressed)
     );
   }
 }
-

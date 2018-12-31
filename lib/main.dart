@@ -18,7 +18,7 @@ class _CourseWidgetState extends State<CourseWidget> {
 
   void _addGradable(){
     setState(() {
-      widget.course.addGradeable("Test", 0.6, 45);
+      widget.course.addGradable("Test", 0.6, 45);
     });
   }
 
@@ -31,7 +31,7 @@ class _CourseWidgetState extends State<CourseWidget> {
 
   void _removeGrade(Gradable gradable){
     setState(() {
-      widget.course.removeGradeable(gradable);
+      widget.course.removeGradable(gradable);
     });
   }
 

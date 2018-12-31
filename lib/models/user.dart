@@ -47,19 +47,20 @@ class Course {
     return weight;
   }
 
-  void addGradeable([String name = "Test", double weight = 0.0, double grade = 0.0, bool marked = false]){
-    double remianingWeight = _getRemainingWeight();
-    if(remianingWeight == 0) return;
-    if(weight > _getRemainingWeight()) weight = remianingWeight;
+  bool addGradable([String name = "Assignment", double weight = 0.0, double grade = 0.0, bool marked = false]){
+    double remainingWeight = _getRemainingWeight();
+    if(remainingWeight == 0) return false;
+    if(weight > _getRemainingWeight()) weight = remainingWeight;
     gradables.add(new Gradable(
       name: name,
       weight: weight,
       grade: grade,
       marked: marked
     ));
+    return true;
   }
 
-  Gradable removeGradeable(Gradable gradable){
+  Gradable removeGradable(Gradable gradable){
     if(!gradables.contains(gradable)) return null;
 
     Gradable removed = gradable;
@@ -73,7 +74,7 @@ class Course {
 
 }
 
-//Assingment, Lab, Midterm, Final
+//Assignment, Lab, Midterm, Final
 class Gradable {
   String name;
   double weight;
