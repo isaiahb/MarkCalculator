@@ -44,6 +44,15 @@ class Course {
     return weight;
   }
 
+  void addGradeable([String name = "Test", double weight = 0.0, double grade = 0.0, bool marked = false]){
+    gradables.add(new Gradable(
+      name: name,
+      weight: weight,
+      grade: grade,
+      marked: marked
+    ));
+  }
+
 }
 
 //Assingment, Lab, Midterm, Final

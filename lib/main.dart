@@ -14,6 +14,13 @@ class CourseWidget extends StatefulWidget {
 }
 
 class _CourseWidgetState extends State<CourseWidget> {
+  
+  void _addGradable(){
+    setState(() {
+      widget.course.addGradeable("Test");
+    });
+  }
+  
   @override
   Widget build(BuildContext context) {
 //    widget.course = widget.course != null ? widget.course : Course(gradables: [new Gradable(name: "test1")]);
@@ -38,6 +45,12 @@ class _CourseWidgetState extends State<CourseWidget> {
                 ),
               )
           ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blue,
+          onPressed: _addGradable,
         ),
         body: AssignmentList(widget.course)
         ),
