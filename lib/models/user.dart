@@ -60,6 +60,14 @@ class Course {
     ));
   }
 
+  Gradable removeGradeable(Gradable gradable){
+    if(!gradables.contains(gradable)) return null;
+
+    Gradable removed = gradable;
+    gradables.remove(gradable);
+    return removed;
+  }
+
   double _getRemainingWeight(){
     return 1.0 - _getCurrentWeight();
   }

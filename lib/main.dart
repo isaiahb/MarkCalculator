@@ -20,6 +20,12 @@ class _CourseWidgetState extends State<CourseWidget> {
       widget.course.addGradeable("Test", 0.6, 45);
     });
   }
+
+  void _removeGrade(Gradable gradable){
+      setState(() {
+          widget.course.removeGradeable(gradable);
+    });
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -54,7 +60,7 @@ class _CourseWidgetState extends State<CourseWidget> {
           elevation: 20,
           
         ),
-        body: AssignmentList(widget.course)
+        body: AssignmentList(widget.course, _removeGrade)
         ),
     debugShowCheckedModeBanner: false,
     );
