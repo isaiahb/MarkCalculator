@@ -66,7 +66,7 @@ class _CourseWidgetState extends State<CourseWidget> {
           backgroundColor: Colors.blue,
           onPressed: _addGradable,
           elevation: 20,
-          
+
         ),
 
         bottomNavigationBar: BottomNavigationBar(
