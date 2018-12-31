@@ -38,21 +38,27 @@ class AssignmentWidget extends StatefulWidget {
 class _AssignmentWidgetState extends State<AssignmentWidget> {
 
   void _onEditPressed() => print("editting");
+
   void _onDeletePressed() => print("deleting");
 
   Widget _getTrailing() {
     return Container(
       child: Row(children: <Widget>[
-        RaisedButton(child: Text("Edit"), color: Colors.green, onPressed: _onEditPressed),
-        RaisedButton(child: Text("Delete"), color: Colors.red, onPressed: _onDeletePressed),
+        RaisedButton(child: Text("Edit"),
+            color: Colors.green,
+            onPressed: _onEditPressed),
+        RaisedButton(child: Text("Delete"),
+            color: Colors.red,
+            onPressed: _onDeletePressed),
 
       ]),
     );
   }
 
-  void _resetDate(){}
-  void _delete(){}
-  final renameController = TextEditingController(text:"");
+  void _resetDate() {}
+
+  void _delete() {}
+  final renameController = TextEditingController(text: "");
 
   void _rename() {
     print(renameController.text);
@@ -70,16 +76,18 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
 
             actions: <Widget>[
               new FlatButton(
-                  child: Text("Confirm", style: TextStyle(color:Colors.green)),
-                  onPressed: (){
+                  child: Text("Confirm", style: TextStyle(color: Colors.green)),
+                  onPressed: () {
                     _rename();
                   }
               ),
 
               FlatButton(
                 color: Colors.red,
-                child: Text("Cancel", style: TextStyle(color:Colors.white)),
-                onPressed: (){print("cancel");},
+                child: Text("Cancel", style: TextStyle(color: Colors.white)),
+                onPressed: () {
+                  print("cancel");
+                },
               )
             ],
           );
@@ -90,47 +98,56 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
   @override
   Widget build(BuildContext context) {
     return Dismissible(
-      
-      key: Key(widget.gradable.name + "#" + widget.gradable.grade.truncate().toString()),
 
-      background: Container(color: Colors.red),
+        key: Key(widget.gradable.name + "#" +
+            widget.gradable.grade.truncate().toString()),
 
-      onDismissed: (direction){
-        widget.remove(widget.gradable);
-      },
+        background: Container(color: Colors.red),
 
-          child: ExpansionTile(
-            title: Text("Assignment", textScaleFactor: 1.5,),
-            leading: Text("weight " + (widget.gradable.weight * 100).truncateToDouble().toString() + "%"),
-            trailing: Text(widget.gradable.grade.truncateToDouble().toString() + " % ", style: Theme.of(context).textTheme.display1),
+        onDismissed: (direction) {
+          widget.remove(widget.gradable);
+        },
 
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    Expanded(flex:4, child: RaisedButton(
-                        child:Text("Rename", style:TextStyle(color:Colors.white)),
-                        color: Colors.green,
-                        onPressed: ()=> _showRenameDialog(context)
-                    )),
+        child: ExpansionTile(
+          title: Text("Assignment", textScaleFactor: 1.5,),
+          leading: Text("weight " +
+              (widget.gradable.weight * 100).truncateToDouble().toString() +
+              "%"),
+          trailing: Text(
+              widget.gradable.grade.truncateToDouble().toString() + " % ",
+              style: Theme
+                  .of(context)
+                  .textTheme
+                  .display1),
 
-                    Spacer(),
-                    Expanded(flex:4, child: RaisedButton(
-                        child:Text("Delete", style:TextStyle(color:Colors.white)),
-                        color: Colors.red,
-                        onPressed: _onDeletePressed)
-                    ),
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Expanded(flex: 4, child: RaisedButton(
+                      child: Text(
+                          "Rename", style: TextStyle(color: Colors.white)),
+                      color: Colors.green,
+                      onPressed: () => _showRenameDialog(context)
+                  )),
 
-                  ],
-                ),
-              )
-            ],
-    //      leading: RaisedButton(child:Text("Edit"), onPressed: _onEditPressed),
-    //      trailing: RaisedButton(child:Text("Delete"), onPressed: _onDeletePressed)
-          ),
+                  Spacer(),
+                  Expanded(flex: 4, child: RaisedButton(
+                      child: Text(
+                          "Delete", style: TextStyle(color: Colors.white)),
+                      color: Colors.red,
+                      onPressed: _onDeletePressed)
+                  ),
+
+                ],
+              ),
+
+            )
+          ],
+        )
     );
   }
-
 }
+

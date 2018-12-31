@@ -14,19 +14,27 @@ class CourseWidget extends StatefulWidget {
 }
 
 class _CourseWidgetState extends State<CourseWidget> {
-  
+  int _selectedIndex = 0;
+
   void _addGradable(){
     setState(() {
       widget.course.addGradeable("Test", 0.6, 45);
     });
   }
 
+  void _onTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+
   void _removeGrade(Gradable gradable){
       setState(() {
           widget.course.removeGradeable(gradable);
     });
   }
-  
+
   @override
   Widget build(BuildContext context) {
 //    widget.course = widget.course != null ? widget.course : Course(gradables: [new Gradable(name: "test1")]);
@@ -60,6 +68,25 @@ class _CourseWidgetState extends State<CourseWidget> {
           elevation: 20,
           
         ),
+
+        bottomNavigationBar: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Icon(Icons.school),
+                title: Text('Courses')
+            ),
+
+            BottomNavigationBarItem(
+                icon: Icon(Icons.show_chart),
+                title: Text('Stats')
+            ),
+
+          ],
+          currentIndex: _selectedIndex,
+          onTap: _onTap,
+        ),
+
+
         body: AssignmentList(widget.course, _removeGrade)
         ),
     debugShowCheckedModeBanner: false,
