@@ -16,7 +16,9 @@ class Course {
   String code;
   String name;
 
-  Course({this.credits = 0.5, this.weight = 0.0, this.code ="ECE000", this.name="Course 01", this.gradables});
+  Course({this.credits = 0.5, this.weight = 0.0, this.code ="ECE000", this.name="Course 01", this.gradables}) {
+    this.gradables = gradables != null ? gradables : [];
+  }
 
   double getFinalGrade() {
     double grade = 0;

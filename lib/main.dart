@@ -4,7 +4,7 @@ import 'models/user.dart';
 import 'appBar.dart';
 
 void main() {
-  Course course = Course(gradables: [new Gradable(name: "test2", grade: 87.0, weight: 0.2)]);
+  Course course = Course();
   runApp(MarkCalculator(course));
 }
 
