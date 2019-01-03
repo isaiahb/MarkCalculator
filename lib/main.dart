@@ -65,7 +65,7 @@ class _CourseWidgetState extends State<CourseWidget> {
           child: Icon(Icons.add),
           backgroundColor: Colors.blue,
           onPressed: _addGradable,
-          elevation: 20,
+          elevation: 5,
           
         ),
 
