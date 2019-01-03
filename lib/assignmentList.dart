@@ -124,9 +124,9 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
       leading: Column(
 
         children: <Widget>[
-          ImageIcon(
-            AssetImage('assets/weight.png'),
-            color: Color.lerp(Colors.green, Colors.red, widget.gradable.weight),
+          Icon(
+            Icons.show_chart,
+            color: Color.lerp(Colors.red, Colors.green, widget.gradable.weight),
             size: 40,
           ),
           Text((100*widget.gradable.getWeight()).toString() + " %")

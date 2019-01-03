@@ -3,22 +3,45 @@ import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
 
-void main() => runApp(new CourseWidget(Course(gradables: [new Gradable(name: "test2", grade: 87.0, weight: 0.2)])));
+void main() {
+  Course course = Course(gradables: [new Gradable(name: "test2", grade: 87.0, weight: 0.2)]);
+  runApp(MarkCalculator(course));
+}
+
+class MarkCalculator extends StatelessWidget {
+  final Course course;
+  MarkCalculator(this.course);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: "Course",
+      home: CourseWidget(course),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+
+}
 
 class CourseWidget extends StatefulWidget {
-  Course course;
+  final Course course;
   CourseWidget(this.course);
 
   @override
   _CourseWidgetState createState() => _CourseWidgetState();
 }
 
+
 class _CourseWidgetState extends State<CourseWidget> {
+  final nameController = TextEditingController(text: "Assignment");
+  final markController = TextEditingController(text: "80");
+  final weightController = TextEditingController(text: "0.5");
   int _selectedIndex = 0;
 
-  void _addGradable(){
+
+  void _addGradable({String name = "Assignment", double weight = 0.1, double mark = 80}){
     setState(() {
-      widget.course.addGradable("Test", 0.6, 45);
+      widget.course.addGradable(name, weight, mark);
     });
   }
 
@@ -35,13 +58,90 @@ class _CourseWidgetState extends State<CourseWidget> {
     });
   }
 
+  void _showAddDialog(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return SimpleDialog(
+            title: Text("Name Assignment"),
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
+                  child: TextFormField(
+                    controller: nameController,
+                    decoration: InputDecoration(
+                      labelText: 'Assignment Name',
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
+                  child: TextFormField(
+                    controller: markController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter Mark',
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
+                  child: TextFormField(
+                    controller: weightController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter Weight',
+                    ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Row (
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Spacer(),
+
+
+                      FlatButton(
+                        textTheme: Theme.of(context).buttonTheme.textTheme,
+                        color: Colors.black12,
+                        child: Text("Cancel"),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: FlatButton(
+                            color: Theme.of(context).primaryColor,
+                            child: Text("Add", style: TextStyle(color: Colors.white)),
+                            onPressed: () {
+                              _addGradable(
+                                  name: nameController.text,
+                                  weight: double.parse(weightController.text),
+                                  mark: double.parse(markController.text)
+                              );
+                              Navigator.of(context).pop();
+
+                            }
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+
+          );
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-//    widget.course = widget.course != null ? widget.course : Course(gradables: [new Gradable(name: "test1")]);
 
-    return MaterialApp(
-      title: "Course",
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: Text("Course"),
@@ -60,13 +160,15 @@ class _CourseWidgetState extends State<CourseWidget> {
               )
           ),
         ),
+
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           backgroundColor: Colors.blue,
-          onPressed: _addGradable,
+//          onPressed: ()=>  _addGradable(),//_showAddDialog(context),
+          onPressed: ()=>  _showAddDialog(context),
           elevation: 5,
-          
         ),
 
         bottomNavigationBar: BottomNavigationBar(
@@ -86,11 +188,8 @@ class _CourseWidgetState extends State<CourseWidget> {
           onTap: _onTap,
         ),
 
-
         body: AssignmentList(widget.course, _removeGrade)
-        ),
-    debugShowCheckedModeBanner: false,
-    );
-
+      );
   }
+
 }
