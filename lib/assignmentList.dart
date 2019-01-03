@@ -121,7 +121,17 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       title: Text(widget.gradable.name, textScaleFactor: 1.5,),
-      leading: Text("weight " + (widget.gradable.weight * 100).truncateToDouble().toString() + "%"),
+      leading: Column(
+
+        children: <Widget>[
+          ImageIcon(
+            AssetImage('assets/weight.png'),
+            color: Color.lerp(Colors.green, Colors.red, widget.gradable.weight),
+            size: 40,
+          ),
+          Text((100*widget.gradable.getWeight()).toString() + " %")
+        ],
+      ),
       trailing: Text(widget.gradable.grade.truncateToDouble().toString() + " % ", style: Theme.of(context).textTheme.display1),
 
       children: <Widget>[

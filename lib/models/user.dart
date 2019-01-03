@@ -91,4 +91,9 @@ class Gradable {
     double currentWeight = weight * (1.0/currentMaxWeight);
     return grade * currentWeight;
   }
+
+  double getWeight(){
+    double grade = (100*weight).roundToDouble();
+    return grade/100;
+  }
 }
