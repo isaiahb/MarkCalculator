@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 void main() {
   Course course = Course();
@@ -31,13 +32,13 @@ class CourseWidget extends StatefulWidget {
   _CourseWidgetState createState() => _CourseWidgetState();
 }
 
-
 class _CourseWidgetState extends State<CourseWidget> {
   final nameController = TextEditingController(text: "Assignment");
   final markController = TextEditingController(text: "80");
   final weightController = TextEditingController(text: "0.5");
   int _selectedIndex = 0;
 
+  int _currentValue = 0;
 
   void _addGradable({String name = "Assignment", double weight = 0.1, double mark = 80}){
     setState(() {
@@ -76,13 +77,25 @@ class _CourseWidgetState extends State<CourseWidget> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-                  child: TextFormField(
-                    controller: markController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Mark',
-                    ),
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 2.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      NumberPicker.integer(
+                      initialValue: _currentValue,
+                      minValue: 0,
+                      maxValue: 100,
+                      onChanged: (newValue) =>
+                    setState(() => _currentValue = newValue)),
+
+                    NumberPicker.integer(
+                      initialValue: _currentValue,
+                      minValue: 0,
+                      maxValue: 100,
+                      onChanged: (newValue) =>
+                    setState(() => _currentValue = newValue)),
+                    ],
+                  )
                 ),
 
                 Padding(
