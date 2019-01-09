@@ -35,12 +35,10 @@ class CourseWidget extends StatefulWidget {
 
 class _CourseWidgetState extends State<CourseWidget> {
   final nameController = TextEditingController(text: "Assignment");
-  final markController = TextEditingController(text: "80");
-  final weightController = TextEditingController(text: "0.5");
   int _selectedIndex = 0;
 
-  int _currentGradeValue = 0;
-  int _currentWeightValue = 0;
+  int _currentGradeValue = 50;
+  int _currentWeightValue = 50;
 
   void _addGradable({String name = "Assignment", double weight = 0.1, double mark = 80}){
     setState(() {
@@ -127,7 +125,7 @@ class _CourseWidgetState extends State<CourseWidget> {
                             onPressed: () {
                               _addGradable(
                                   name: nameController.text,
-                                  weight: _currentWeightValue.toDouble(),
+                                  weight: (_currentWeightValue.toDouble())/100.0,
                                   mark: _currentGradeValue.toDouble()
                               );
                               Navigator.of(context).pop();
