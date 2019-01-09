@@ -51,7 +51,10 @@ class _CourseWidgetState extends State<CourseWidget> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(widget.course.name),
-          leading: BackButton(),
+          leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: (){ Navigator.pop(context); }
+          ),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(48.0),
             child: Container(

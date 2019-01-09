@@ -40,7 +40,10 @@ class _YearWidgetState extends State<YearWidget> {
     return Scaffold(
       body: CourseList(widget.year),
       appBar: AppBar(
-        leading: BackButton(),
+        leading: new IconButton(
+            icon: new Icon(Icons.arrow_back),
+            onPressed: (){},
+        ),
         centerTitle: true,
         title: Text("Year"),
       ),

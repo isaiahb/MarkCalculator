@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
+import '../course/coursePage.dart';
 
 
 class CourseList extends StatefulWidget {
@@ -31,12 +32,18 @@ class _CourseListState extends State<CourseList> {
 class CourseListTile extends StatelessWidget {
   final Course course;
 
-  CourseListTile(this.course){print(course.name);}
+  CourseListTile(this.course);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       title: Text(course.name),
+      onTap: (){
+        Navigator.push(
+          context, 
+          MaterialPageRoute(builder: (context) => CourseWidget(course))
+        ); 
+      },
     );
   }
 }
