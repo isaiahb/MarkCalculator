@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
-import 'package:numberpicker/numberpicker.dart';
-import 'titledWidget.dart';
+import 'gradeAdderDialog.dart';
 
 void main() {
   Course course = Course();
@@ -34,11 +33,7 @@ class CourseWidget extends StatefulWidget {
 }
 
 class _CourseWidgetState extends State<CourseWidget> {
-  final nameController = TextEditingController(text: "Assignment");
   int _selectedIndex = 0;
-
-  int _currentGradeValue = 50;
-  int _currentWeightValue = 50;
 
   void _addGradable({String name = "Assignment", double weight = 0.1, double mark = 80}){
     setState(() {
@@ -63,82 +58,7 @@ class _CourseWidgetState extends State<CourseWidget> {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return SimpleDialog(
-            title: Text("Name Assignment"),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-                  child: TextFormField(
-                    controller: nameController,
-                    decoration: InputDecoration(
-                      labelText: 'Assignment Name',
-                    ),
-                  ),
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 2.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      TitledWidget(text: "Enter Grade", widget: NumberPicker.integer(
-                        initialValue: _currentGradeValue,
-                        minValue: 0,
-                        maxValue: 100,
-                        onChanged: (newValue) =>
-                        setState(() => _currentGradeValue = newValue))
-                      ),
-
-                      TitledWidget(text: "Enter Weight", widget: NumberPicker.integer(
-                        initialValue: _currentWeightValue,
-                        minValue: 0,
-                        maxValue: 100,
-                        onChanged: (newValue) =>
-                        setState(() => _currentWeightValue = newValue))
-                      ),
-                    ],
-                  )
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Row (
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Spacer(),
-
-
-                      FlatButton(
-                        textTheme: Theme.of(context).buttonTheme.textTheme,
-                        color: Colors.black12,
-                        child: Text("Cancel"),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 8.0),
-                        child: FlatButton(
-                            color: Theme.of(context).primaryColor,
-                            child: Text("Add", style: TextStyle(color: Colors.white)),
-                            onPressed: () {
-                              _addGradable(
-                                  name: nameController.text,
-                                  weight: (_currentWeightValue.toDouble())/100.0,
-                                  mark: _currentGradeValue.toDouble()
-                              );
-                              Navigator.of(context).pop();
-
-                            }
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-
-          );
+          return new GradeAdderDialog(gradeAdder: _addGradable);
         }
     );
   }
