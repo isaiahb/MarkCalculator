@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 
 class AssignmentList extends StatefulWidget {
@@ -119,43 +120,37 @@ class _AssignmentWidgetState extends State<AssignmentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ExpansionTile(
-      title: Text(widget.gradable.name, textScaleFactor: 1.5,),
-      leading: Column(
-
-        children: <Widget>[
-          Icon(
-            Icons.show_chart,
-            color: Color.lerp(Colors.red, Colors.green, widget.gradable.weight),
-            size: 40,
-          ),
-          Text((100*widget.gradable.getWeight()).toString() + " %")
-        ],
+    return Slidable(
+      delegate: SlidableScrollDelegate(),
+      child: ListTile(
+        title: Text(widget.gradable.name, textScaleFactor: 1.5,),
+        leading: Column(
+          children: <Widget>[
+            Icon(
+              Icons.show_chart,
+              color: Color.lerp(Colors.red, Colors.green, widget.gradable.weight),
+              size: 40,
+            ),
+            Text((100*widget.gradable.getWeight()).toString() + " %")
+          ],
+        ),
+        trailing: Text(widget.gradable.grade.truncateToDouble().toString() + " % ", style: Theme.of(context).textTheme.display1),
       ),
-      trailing: Text(widget.gradable.grade.truncateToDouble().toString() + " % ", style: Theme.of(context).textTheme.display1),
+      secondaryActions: <Widget>[
+        IconSlideAction(
+          caption: 'Edit',
+          color: Colors.blue,
+          icon: Icons.edit,
+          onTap: ()=> _showRenameDialog(context)
+        ),
 
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Expanded(flex:4, child: RaisedButton(
-                  child:Text("Rename", style:TextStyle(color:Colors.white)),
-                  color: Colors.green,
-                  onPressed: ()=> _showRenameDialog(context)
-              )),
+        IconSlideAction(
+          caption: 'Delete',
+          color: Colors.red,
+          icon: Icons.delete,
+          onTap: ()=> _deleteDialog(context, widget.gradable)
+        ),
 
-              Spacer(),
-              Expanded(flex:4, child: RaisedButton(
-                  child:Text("Delete", style:TextStyle(color:Colors.white)),
-                  color: Colors.red,
-                  onPressed: ()=> _deleteDialog(context, widget.gradable)
-              )),
-
-            ],
-          ),
-        )
       ],
     );
   }
