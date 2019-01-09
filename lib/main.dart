@@ -3,6 +3,7 @@ import 'assignmentList.dart';
 import 'models/user.dart';
 import 'appBar.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'titledWidget.dart';
 
 void main() {
   Course course = Course();
@@ -38,7 +39,8 @@ class _CourseWidgetState extends State<CourseWidget> {
   final weightController = TextEditingController(text: "0.5");
   int _selectedIndex = 0;
 
-  int _currentValue = 0;
+  int _currentGradeValue = 0;
+  int _currentWeightValue = 0;
 
   void _addGradable({String name = "Assignment", double weight = 0.1, double mark = 80}){
     setState(() {
@@ -77,35 +79,27 @@ class _CourseWidgetState extends State<CourseWidget> {
                 ),
 
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 2.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 2.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      NumberPicker.integer(
-                      initialValue: _currentValue,
-                      minValue: 0,
-                      maxValue: 100,
-                      onChanged: (newValue) =>
-                    setState(() => _currentValue = newValue)),
+                      TitledWidget(text: "Enter Grade", widget: NumberPicker.integer(
+                        initialValue: _currentGradeValue,
+                        minValue: 0,
+                        maxValue: 100,
+                        onChanged: (newValue) =>
+                        setState(() => _currentGradeValue = newValue))
+                      ),
 
-                    NumberPicker.integer(
-                      initialValue: _currentValue,
-                      minValue: 0,
-                      maxValue: 100,
-                      onChanged: (newValue) =>
-                    setState(() => _currentValue = newValue)),
+                      TitledWidget(text: "Enter Weight", widget: NumberPicker.integer(
+                        initialValue: _currentWeightValue,
+                        minValue: 0,
+                        maxValue: 100,
+                        onChanged: (newValue) =>
+                        setState(() => _currentWeightValue = newValue))
+                      ),
                     ],
                   )
-                ),
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 5.0),
-                  child: TextFormField(
-                    controller: weightController,
-                    decoration: InputDecoration(
-                      labelText: 'Enter Weight',
-                    ),
-                  ),
                 ),
 
                 Padding(
@@ -133,8 +127,8 @@ class _CourseWidgetState extends State<CourseWidget> {
                             onPressed: () {
                               _addGradable(
                                   name: nameController.text,
-                                  weight: double.parse(weightController.text),
-                                  mark: double.parse(markController.text)
+                                  weight: _currentWeightValue.toDouble(),
+                                  mark: _currentGradeValue.toDouble()
                               );
                               Navigator.of(context).pop();
 
