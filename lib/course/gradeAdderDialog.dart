@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:numberpicker/numberpicker.dart';
-import 'titledWidget.dart';
+import 'package:grades/widgets/titledWidget.dart';
 
 class GradeAdderDialog extends StatefulWidget {
   final Function gradeAdder;

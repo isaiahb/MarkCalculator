@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'assignmentList.dart';
-import 'models/user.dart';
-import 'appBar.dart';
+import '../models/user.dart';
+import 'courseAppBar.dart';
 import 'gradeAdderDialog.dart';
 
 
@@ -50,7 +50,7 @@ class _CourseWidgetState extends State<CourseWidget> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("Course"),
+          title: Text(widget.course.name),
           leading: BackButton(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(48.0),
@@ -81,7 +81,7 @@ class _CourseWidgetState extends State<CourseWidget> {
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
                 icon: Icon(Icons.school),
-                title: Text('Courses')
+                title: Text('Marks')
             ),
 
             BottomNavigationBarItem(
