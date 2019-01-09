@@ -37,6 +37,7 @@ class CourseListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      trailing: Text(course.getCurrentGrade().toString() + "%"),
       title: Text(course.name),
       onTap: (){
         Navigator.push(
