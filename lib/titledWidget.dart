@@ -14,6 +14,6 @@ class TitledWidget extends StatelessWidget {
         Text(text),
         widget
       ],
-    )
+    );
   }
 }
